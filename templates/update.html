@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update_task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body class = "bg-danger">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <div class="container mx-auto bg-info rounded-4 my-5 border" style="max-width: 600px;">
+
+        <div class="mb-3">
+            <form method="post" action="{% url 'update' task.id %}">
+                {% comment %} <!-- action = "" would also work but use the {% url ...%} always --> {% endcomment %}
+                {%csrf_token%}
+                
+                <label class="form-label h3 mb-3">Update</label>
+                <input type="text" name="title" id="title" value="{{task}}" class="form-control mb-3">
+
+                <input type="checkbox" name="complete" id="complete" {% if task.complete %}checked{% endif %}>
+
+                <button type="submit" class = "btn btn-success ">submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    {% comment %} In Django, when a checkbox input element is submitted, its value is set to 'on' by default,
+    regardless of whether it is checked or not. Therefore, in the view function, we need to check if the checkbox
+    input element was checked or not, and set the complete field of the task instance accordingly.
+
+    In the code snippet you provided, the if complete == 'on' statement checks if the value of the complete
+    parameter in the POST request is 'on'. If it is, it means that the checkbox input element was checked by the
+    user, so we set the complete field of the task instance to True. If it is not, it means that the checkbox
+    input element was not checked, so we set the complete field to False.
+
+    So, the purpose of the if complete == 'on' statement is to determine whether the checkbox input element was
+    checked or not, and to set the complete field of the task instance accordingly. If the checkbox was checked,
+    we set task.complete to True, and if it was not checked, we set task.complete to False. {% endcomment %}
+
+</body>
+
+</html>
